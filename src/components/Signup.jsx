@@ -1,4 +1,5 @@
 import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack, useToast } from '@chakra-ui/react';
+import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
@@ -7,12 +8,12 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const Toast = useToast();
+    const toast = useToast();
     const history = useNavigate();
     const handleClickPassword = () => setShowPassword(!showPassword);
-    const submitHandler = () => {
+    const submitHandler = async() => {
         if(!email || !password) {
-            Toast({
+            toast({
               title: "Please fill all the fields",
               status: "warning",
               duration: 5000,
@@ -21,7 +22,37 @@ const Signup = () => {
             })
             return;
           }
-          history("/usersPage");
+        try {
+            const config = {
+                headers: {
+                "Content-type": "application/json",
+                }
+            }
+            const response = await axios.post(
+                "https://reqres.in/api/login",
+                { email, password },
+                config
+            )
+            toast({
+                title: "Login Successful",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+                position: 'bottom',
+            })
+            // console.log(response.data.token);
+            localStorage.setItem("token", JSON.stringify(response.data.token));
+            history("/usersPage");
+        } catch(err) {
+            toast({
+                title: "Error Occured!",
+                description: err.response.data.message,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: 'bottom',
+            });
+        }
     }
     return (
         <VStack spacing='5px'>
