@@ -32,8 +32,6 @@ npm run dev
 - **Signup is not functional** because Reqres API does not support user registration.
 - **No persistent storage** – all changes (edit/delete) are temporary and reset on refresh.
 
-## 📸 Screenshots
-(Include relevant screenshots here to showcase the UI)
 
 ## 🛠 Technologies Used
 - **React** (Frontend framework)
