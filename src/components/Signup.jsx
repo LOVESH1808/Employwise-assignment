@@ -29,7 +29,7 @@ const Signup = () => {
                 }
             }
             const response = await axios.post(
-                "https://reqres.in/api/login",
+                "https://reqres.in/api/register",
                 { email, password },
                 config
             )
@@ -45,7 +45,8 @@ const Signup = () => {
             history("/usersPage");
         } catch(err) {
             toast({
-                title: "Error Occured!",
+                title: `Note: Only defined users from regress api succeed registration
+                try using email : eve.holt@reqres.in and password : pistol`,
                 description: err.response.data.message,
                 status: "error",
                 duration: 5000,
