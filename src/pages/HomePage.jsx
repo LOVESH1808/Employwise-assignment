@@ -5,13 +5,13 @@ import Signup from '../components/Signup'
 import { useNavigate } from 'react-router-dom'
 
 const HomePage = () => {
-  // const history = useNavigate();
-  // useEffect(() => {
-  //   const user = JSON.parse(localStorage.getItem("userInfo"))
-  //   if(user) {
-  //     history("/usersPage")
-  //   }
-  // }, [history]);
+  const history = useNavigate();
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("token"))
+    if(user) {
+      history("/usersPage")
+    }
+  }, [history]);
   return (
     <Container maxW='xl' centerContent>
       <Box

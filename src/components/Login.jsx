@@ -7,11 +7,11 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const handleClickPassword = () => setShowPassword(!showPassword);
-    const Toast = useToast();
-    const history = useNavigate();
+    const toast = useToast();
+    const navigate = useNavigate();
     const submitHandler = async() => {
         if(!email || !password) {
-            Toast({
+            toast({
                 title:"Please fill all the fields",
                 status:"warning",
                 duration:5000,
@@ -31,7 +31,7 @@ const Login = () => {
                 { email, password },
                 config
             )
-            Toast({
+            toast({
                 title: "Login Successful",
                 status: "success",
                 duration: 5000,
@@ -39,18 +39,18 @@ const Login = () => {
                 position: 'bottom',
             })
             console.log(response.data.token);
-            localStorage.setItem("userInfo", JSON.stringify(response.data.token));
-            history("/usersPage")
-            } catch(err) {
-                Toast({
-                title: "Error Occured!",
-                description: err.response.data.message,
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-                position: 'bottom',
-                });
-            }
+            localStorage.setItem("token", JSON.stringify(response.data.token));
+            navigate("/usersPage");
+        } catch(err) {
+            toast({
+            title: "Error Occured!",
+            description: err.response.data.message,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: 'bottom',
+            });
+        }
     }
     return (
         <VStack spacing = '5px'>
